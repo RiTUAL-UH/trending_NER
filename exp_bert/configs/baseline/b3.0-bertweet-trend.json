@@ -1,0 +1,58 @@
+{
+    "experiment":{
+        "id": "baseline-bertweet-trend",
+        "seed": 42,
+        "output_dir": "exp_bert/results"
+    },
+
+    "data": {
+        "directory": "data/",
+        "colnames": {
+            "tokens": 0,
+            "labels": 1
+        },
+        "partitions": {
+            "train": "path/to/train.txt",
+            "dev": "path/to/dev.txt",
+            "test": [
+                "path/to/test.txt"
+            ]
+        },
+        "label_scheme": ["B-LOC", "B-ORG", "B-PER", "I-LOC", "I-ORG", "I-PER", "O"]
+    },
+
+    "preproc": {
+        "dataset_class": "roberta",
+        "do_lowercase": false,
+        "new_tokens": []
+    },
+
+    "model": {
+        "config": "exp_bert/BERTweet_base_transformers/config.json",
+        "tokenizer": "roberta-base",
+        "bpe_codes": "exp_bert/BERTweet_base_transformers/bpe.codes",
+        "vocab": "exp_bert/BERTweet_base_transformers/dict.txt",
+        "model_name_or_path": "exp_bert/BERTweet_base_transformers/model.bin",
+        "pretrained_frozen": false,
+        "model_class": "roberta",
+        "name": "NERModel",
+        "alpha": 0.99,
+        "beta": 0.01,
+        "gamma": 0.01
+    },
+
+    "optim": {
+        "learning_rate": 5e-5,
+        "num_train_epochs": 20,
+        "max_steps": -1,
+        "per_gpu_train_batch_size": 32,
+        "per_gpu_eval_batch_size": 32,
+        "gradient_accumulation_steps": 1,
+        "weight_decay": 0.01,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "adam_epsilon": 1e-8,
+        "max_grad_norm": 1.0,
+        "warmup_steps": 0
+    }
+}

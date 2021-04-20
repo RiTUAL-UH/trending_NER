@@ -1,0 +1,45 @@
+{
+    "experiment_id": "b1.0-lstm-trend",
+    "description": "CNN + BiLSTM + CRF from the Twitter data",
+    "dataset": {
+        "train": "path/to/train.txt",
+        "dev": "path/to/dev.txt",
+        "test": "path/to/test.txt"
+    },
+    "model": {
+        "name": "NERModel",
+        "char_model": {
+            "embedding_dim": 50,
+            "kernels": [2, 3, 4],
+            "channels": [64, 64, 32]
+        },
+        "embeddings": ["twitter"],
+        "lstm_hidden": 300,
+        "lstm_bidirectional": true,
+        "lstm_layers": 2,
+        "dropout": 0.5,
+        "use_crf": true,
+        "alpha": 0.7,
+        "beta": 0.3,
+        "gamma": 0.3
+    },
+    "training": {
+        "epochs": 100,
+        "batch_size": 20,
+        "optim": {
+            "name": "sgd",
+            "lr": 3e-1,
+            "weight_decay": 0.0,
+            "momentum": 0.9
+        },
+        "lr_scheduler": {
+            "name": "cos",
+            "T_0": 10,
+            "T_mult": 2
+        },
+        "clip_grad": 5.0
+    },
+    "evaluation": {
+        "batch_size": 128
+    }
+}

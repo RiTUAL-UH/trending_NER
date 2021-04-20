@@ -1,0 +1,13 @@
+tqdm==4.59.0
+validators==0.18.2
+flair==0.8.0.post1
+numpy==1.19.5
+tabulate==0.8.9
+transformers==4.3.3
+emoji==1.2.0
+seqeval==1.2.2
+fairseq==0.10.2
+allennlp==2.1.0
+h5py==3.2.1
+torch==1.7.0
+scikit_learn==0.24.1
