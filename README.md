@@ -3,7 +3,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 
-This repository contains the implementations of the system described in the paper ["Mitigating Temporal-Drift: A Simple Approach to Keep NER Models Crisp"]([https://](https://github.com/RiTUAL-UH/trending_NER)) on the [9th International Workshop on Natural Language Processing for Social Media](https://sites.google.com/site/socialnlp2021/) at the [NAACL](https://2021.naacl.org) conference.
+This repository contains the implementations of the system described in the paper ["Mitigating Temporal-Drift: A Simple Approach to Keep NER Models Crisp"](https://www.aclweb.org/anthology/2021.socialnlp-1.14.pdf) on the [9th International Workshop on Natural Language Processing for Social Media](https://sites.google.com/site/socialnlp2021/) at the [NAACL](https://2021.naacl.org) conference.
 
 ## Repository Structure
 ```
@@ -36,7 +36,7 @@ trending_NER
 ```
 
 ## Installation
-If you use conda, you can set up the environment as follows:
+We have updated the code to work with Python 3.8, Pytorch 1.7, and CUDA 10.2. If you use conda, you can set up the environment as follows:
 
 ```bash
 conda create -n trending_NER python==3.8
@@ -52,7 +52,7 @@ pip install -r requirements.txt
 ## Data
 Please download the data from: [Temporal Twitter Corpus](https://github.com/shrutirij/temporal-twitter-corpus).
 
-Make sure you provide the correct paths to the data split in the config file. 
+Make sure you provide the correct paths to the data splits in the config file. 
 For example, `exp_bert/configs/b2.0-bert-trend.json` contains this:
 
 ```json
@@ -64,6 +64,7 @@ For example, `exp_bert/configs/b2.0-bert-trend.json` contains this:
             "path/to/test.txt"
         ]
     },
+    ...
 ```
 
 ## Data Selection
@@ -75,7 +76,7 @@ This project contains two different systems:
 1. Experiment with BERT and BERTweet
 2. Experiment with CNN + LSTM +CRF
 
-> We use config files to specify the details for every experiment (e.g., hyper-parameters, datasets, etc.). You can use or modify any config file from the `exp_bert/configs` directory and the `exp_ssl/configs` directory.
+We use config files to specify the details for every experiment (e.g., hyper-parameters, datasets, etc.). You can modify config files in the `exp_bert/configs` directory or `exp_ssl/configs` directory and run experiments with following instructions.
 
 ### 1. Experiment with BERT and BERTweet
 
@@ -98,6 +99,22 @@ CUDA_VISIBLE_DEVICES=1 python exp_bert/src/main.py --config exp_bert/configs/bas
 To run experiments with CNN + LSTM +CRF, you can train the model from a config file like this:
 ```
 CUDA_VISIBLE_DEVICES=1 python exp_ssl/src/main.py --config exp_ssl/configs/baseline/b1.0-lstm-trend.json
+```
+
+## Citation
+```text
+@inproceedings{chen-etal-2021-mitigating,
+    title = "Mitigating Temporal-Drift: A Simple Approach to Keep {NER} Models Crisp",
+    author = "Chen, Shuguang and Neves, Leonardo and Solorio, Thamar",
+    booktitle = "Proceedings of the Ninth International Workshop on Natural Language Processing for Social Media",
+    month = jun,
+    year = "2021",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/2021.socialnlp-1.14",
+    doi = "10.18653/v1/2021.socialnlp-1.14",
+    pages = "163--169"
+}
 ```
 
 ## Contact
