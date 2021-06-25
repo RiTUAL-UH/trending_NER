@@ -78,8 +78,6 @@ class NERModel(NERModelBase):
     def __init__(self, config):
         super().__init__(config)
 
-        self.trend_classifier = InferenceLayer(config.hidden_size, config.num_labels, use_crf=True)
-
     def forward(self, input_ids, attention_mask, token_type_ids,
                 position_ids=None, labels=None, label_mask=None, head_mask=None, inputs_embeds=None,
                 wrap_scalars=False):

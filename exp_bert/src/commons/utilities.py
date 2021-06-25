@@ -192,29 +192,6 @@ def replace_numbers(token):
     return token
 
 
-def print_popular_lm_parameters():
-    from allennlp.modules.elmo import Elmo
-    from flair.embeddings import FlairEmbeddings
-    from transformers import BertModel
-
-    elmo_weights = "https://s3-us-west-2.amazonaws.com/allennlp/models/elmo/2x4096_512_2048cnn_2xhighway_5.5B/elmo_2x4096_512_2048cnn_2xhighway_5.5B_weights.hdf5"
-    elmo_options = "https://s3-us-west-2.amazonaws.com/allennlp/models/elmo/2x4096_512_2048cnn_2xhighway_5.5B/elmo_2x4096_512_2048cnn_2xhighway_5.5B_options.json"
-    elmo = Elmo(elmo_options, elmo_weights, 2)
-
-    flair_lm = FlairEmbeddings('news-forward').lm
-
-    bert_base_cased = BertModel.from_pretrained("bert-base-cased")
-    bert_large_cased = BertModel.from_pretrained("bert-large-cased")
-
-    def count_parameters(model, give_me_all):
-        return sum(p.numel() for p in model.parameters() if p.requires_grad or give_me_all)
-
-    print("elmo:", count_parameters(elmo, True))  # 93,600,872
-    print("flair_lm:", count_parameters(flair_lm, True))  # 18,257,500
-    print("bert_base_cased:", count_parameters(bert_base_cased, True))  # 108,310,272
-    print("bert_large_cased:", count_parameters(bert_large_cased, True))  # 333,579,264
-
-
 def input_with_timeout(prompt, timeout, default=''):
     def alarm_handler(signum, frame):
         raise Exception("Time is up!")
