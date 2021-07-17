@@ -50,10 +50,9 @@ pip install -r requirements.txt
 ```
 
 ## Data
-Please download the data from: [Temporal Twitter Corpus](https://github.com/shrutirij/temporal-twitter-corpus).
+Please download the data from: [Temporal Twitter Corpus](https://github.com/shrutirij/temporal-twitter-corpus). 
 
-Make sure you provide the correct paths to the data splits in the config file. 
-For example, `exp_bert/configs/b2.0-bert-trend.json` contains this:
+Make sure that you use '\t' as dilimiter and provide the correct paths to the data splits in the config file. For example, `exp_bert/configs/b2.0-bert-trend.json` contains this:
 
 ```json
     ...
@@ -68,7 +67,10 @@ For example, `exp_bert/configs/b2.0-bert-trend.json` contains this:
 ```
 
 ## Data Selection
-For select the most informative data based on the trendig detection for retraining, please check `notebooks/1-exploring-trending-detection.ipynb` for detail.
+For select the most informative data based on the trendig detection for retraining, please check `notebooks/1-exploring-trending-detection.ipynb` for detail. To run the notebook, you need to set <u>WORKSPACE</u> with the following command variable in your local or you can change the project path in the first cell.
+```
+export WORKSPACE=/path/to/project
+```
 
 ## Running
 

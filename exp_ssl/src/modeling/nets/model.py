@@ -71,7 +71,7 @@ class NERModelBase(nn.Module):
         return lstm_results, mask
 
 
-    def forward(self, inputs, targets, trends=None, years=None):
+    def forward(self, inputs, targets):
         raise NotImplementedError('The NERModelBase class should never execute forward')
 
 
@@ -95,7 +95,7 @@ class NERModel(NERModelBase):
         # CRF
         self.classifier = InferenceLayer(lstm_size, n_classes, use_crf=use_crf)
 
-    def forward(self, inputs, targets, trends=None, years=None):
+    def forward(self, inputs, targets):
         # LSTM
         lstm_results, mask = self.forward_lstm(inputs, targets)
 

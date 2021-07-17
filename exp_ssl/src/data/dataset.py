@@ -15,45 +15,29 @@ class SMDataset(Dataset):
         self.tokens = dataset['tokens']
         self.labels = dataset['labels']
 
-        if 'trends' in dataset:
-            self.trends = dataset['trends']
-        else:
-            self.trends = [[0 for token in tokens] for tokens in self.tokens]
-        
-        if 'years' in dataset:
-            self.years = dataset['trends']
-        else:
-            self.years = [[2014 for token in tokens] for tokens in self.tokens]
-
-        assert len(self.tokens) == len(self.labels) == len(self.trends) == len(self.years)
+        assert len(self.tokens) == len(self.labels)
 
     def __len__(self):
         return len(self.tokens)
 
     def __getitem__(self, item):
-        return self.tokens[item], self.labels[item], self.trends[item], self.years[item]
+        return self.tokens[item], self.labels[item]
 
     def collate_fn(self, batch):
-        tokens, labels, trends, years = zip(*batch)
+        tokens, labels = zip(*batch)
 
         batch_size = len(tokens)
         seq_maxlen = max(list(map(len, tokens)))
 
         ner_targets = torch.zeros(batch_size, seq_maxlen).long().to(glb.DEVICE)
-        trend_target = torch.zeros(batch_size, seq_maxlen).long().to(glb.DEVICE)
-        year_target = torch.zeros(batch_size).long().to(glb.DEVICE)
 
         for i in range(batch_size):
             for j in range(len(tokens[i])):
                 ner_targets[i, j] = labels[i][j]
-                trend_target[i, j] = int(trends[i][j])
-            year_target[i] = int(years[i][0]) - 2014
 
         batch_dict = {
             'tokens': tokens,
-            'targets': ner_targets,
-            'trends': trend_target,
-            'years': year_target
+            'targets': ner_targets
         }
 
         return batch_dict
@@ -75,7 +59,7 @@ class SMDataset(Dataset):
 
 def create_datasets(train_path, dev_path, test_path):
     datasets = {
-        'train': SMDataset(train_path, colnames={'tokens': 0, 'labels': 1, 'trends': 2, 'years': 3}),
+        'train': SMDataset(train_path, colnames={'tokens': 0, 'labels': 1}),
         'dev':   SMDataset(dev_path, colnames={'tokens': 0, 'labels': 1}),
         'test':  SMDataset(test_path, colnames={'tokens': 0, 'labels': 1})
     }
